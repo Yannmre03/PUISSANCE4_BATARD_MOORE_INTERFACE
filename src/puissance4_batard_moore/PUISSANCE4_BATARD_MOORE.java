@@ -15,7 +15,8 @@ public class PUISSANCE4_BATARD_MOORE {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-       
+        Jeton test = new Jeton("rouge");
+        System.out.println(test);
     }
     
 }

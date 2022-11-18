@@ -9,6 +9,21 @@ package puissance4_batard_moore;
  * @author Administrateur
  */
 public class Jeton {
-    String couleur;
+    private String couleur;
     
+    public Jeton (String couleur){
+        this.couleur = couleur;
+    }
+    public String lireCouleur(){
+        return couleur;
+    }
+    @Override
+    public String toString () {                             // méthode string 
+        if (couleur == "rouge") {
+            return "R";
+        } else {
+            return "J";
+        }
+        
+    }
 }
