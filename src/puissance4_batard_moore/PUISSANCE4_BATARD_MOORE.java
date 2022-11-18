@@ -15,7 +15,7 @@ public class PUISSANCE4_BATARD_MOORE {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        System.out.println("julia t'es pas gentille");
+       
     }
     
 }
