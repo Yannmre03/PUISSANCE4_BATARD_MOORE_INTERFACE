@@ -13,7 +13,7 @@ public class CelluleDeGrille {
     private boolean avoirTrouNoir;
     private boolean avoirDesintegrateur;
     
-    public CelluleDeGrille (){
+    public CelluleDeGrille(){
         jetonCourant =null;
         avoirTrouNoir = false;
         avoirDesintegrateur = false;
