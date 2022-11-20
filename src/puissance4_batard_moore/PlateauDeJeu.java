@@ -96,20 +96,20 @@ public class PlateauDeJeu {
     public boolean diagonaleMontanteGagnantePourCouleur(String couleur){
         int compteur = 0;
         
-        for (int i=3; i<6; i++){
-            for (int j=0; j<7; j++){
-                if (grille[i-compteur][j].lireCouleurDuJeton() == couleur){
-                    compteur+=1;
-                    if (compteur == 4){
-                        return true;
+        for (int i=0; i<3; i++){
+            for (int j=0; j<4; j++){
+                    for (int k=0; k<5; k++){
+                        if (grille[i-k][j+k].lireCouleurDuJeton() == couleur){
+                            compteur+=1;
+                        }
+                        else{
+                            compteur = 0;
                     }
-                }
-                else{
-                    compteur = 0;
-                    if (j >= 3){
-                        break;
+                        if (compteur == 4){
+                            return true;
+                        }
                     }
-                }
+                compteur = 0;
             }
         }
         return false; 
