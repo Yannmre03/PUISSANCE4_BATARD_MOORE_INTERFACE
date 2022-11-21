@@ -143,5 +143,70 @@ public class PlateauDeJeu {
         return false; 
     }
     
+    public void tasserLigne(int ligne){
+        for (int j=0; j<7;j++){
+            if(grille[ligne][j] == null){
+                for (int i = ligne; i<5; i++){  
+                    grille[i][j] = grille[i+1][j];
+                }
+                grille[5][j] = null;
+            }       
+        }
+    }
+    
+    public boolean colonneRemplie(int colonne){
+        return grille[5][colonne] != null;      
+    }
+    
+    public boolean placerTrouNoir(int ligne, int colonne){
+        if (grille[ligne][colonne].presenceTrouNoir() == false){
+            grille[ligne][colonne].placerTrouNoir();
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    
+    public boolean supprimerTrouNoir(int ligne, int colonne){
+        if (grille[ligne][colonne].presenceTrouNoir() == true){
+            grille[ligne][colonne].supprimerTrouNoir();
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    
+    public boolean placerDesintegrateur(int ligne, int colonne){
+        if (grille[ligne][colonne].presenceDesintegrateur() == false){
+            grille[ligne][colonne].placerDesintegrateur();
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    
+    public boolean supprimerDesintegrateur(int ligne, int colonne){
+        if (grille[ligne][colonne].presenceDesintegrateur() == true){
+            grille[ligne][colonne].supprimerDesintegrateur();
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    
+    public boolean supprimerJeton(int ligne, int colonne){
+        if(grille[ligne][colonne].presenceJeton()){
+            grille[ligne][colonne].supprimerJeton();
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    
     }
 

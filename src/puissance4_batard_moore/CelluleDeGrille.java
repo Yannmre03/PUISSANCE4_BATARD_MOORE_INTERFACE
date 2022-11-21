@@ -21,13 +21,7 @@ public class CelluleDeGrille {
                 
     }
     public boolean presenceJeton(){
-        if (jetonCourant!= null){
-            return true;
-        }
-        else {
-            return false;
-        }
-        
+        return jetonCourant!= null;
     }
     
     public void affecterJeton(Jeton nomDuJeton) {
@@ -54,13 +48,8 @@ public class CelluleDeGrille {
         avoirTrouNoir = false;
     }
     public boolean presenceTrouNoir(){
-        if (avoirTrouNoir == true){
-            return true;
-        }
-        else{
-            return false;
+        return avoirTrouNoir;   
         }  
-    }
  
     public Jeton recupererJeton(){
         Jeton temp = jetonCourant;
@@ -72,12 +61,7 @@ public class CelluleDeGrille {
     }
     
     public boolean presenceDesintegrateur(){
-        if (avoirDesintegrateur == true){
-            return true;
-        }
-        else{
-            return false;
-        }  
+        return avoirDesintegrateur;
     }
     public void placerDesintegrateur(){
         avoirDesintegrateur =true;
