@@ -208,5 +208,9 @@ public class PlateauDeJeu {
         }
     }
     
+    public Jeton recupererJeton(int ligne, int colonne){
+        return grille[ligne][colonne].recupererJeton();
+    }
+    
     }
 
