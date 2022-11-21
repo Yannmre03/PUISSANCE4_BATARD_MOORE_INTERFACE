@@ -98,7 +98,32 @@ public class PlateauDeJeu {
         
         for (int i=0; i<3; i++){
             for (int j=0; j<4; j++){
-                    for (int k=0; k<5; k++){
+                    for (int k=0; k<7; k++){
+                        if (grille[i+k][j+k].lireCouleurDuJeton() == couleur){
+                            compteur+=1;
+                        }
+                        else{
+                            compteur = 0;
+                    }
+                        if (compteur == 4){
+                            return true;
+                        }
+                        if (i==5 && j == 6){
+                            break;
+                        }
+                    }
+                compteur = 0;
+            }
+        }
+        return false; 
+    }
+    
+    public boolean diagonaleDesencanteGagnantePourCouleur(String couleur){
+        int compteur = 0;
+        
+        for (int i=3; i<6; i++){
+            for (int j=0; j<4; j++){
+                    for (int k=0; k<7; k++){
                         if (grille[i-k][j+k].lireCouleurDuJeton() == couleur){
                             compteur+=1;
                         }
@@ -107,6 +132,9 @@ public class PlateauDeJeu {
                     }
                         if (compteur == 4){
                             return true;
+                        }
+                        if (i==0 && j == 6){
+                            break;
                         }
                     }
                 compteur = 0;
