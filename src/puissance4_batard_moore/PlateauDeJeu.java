@@ -19,10 +19,10 @@ public class PlateauDeJeu {
         }
     }
     public int ajouterJetonDansColonne(Jeton UnJeton, int colonne){
-        for (int k=5; k >=0; k--){
-            if (grille[k][colonne].lireCouleurDuJeton() == "rouge" || grille[k][colonne].lireCouleurDuJeton() == "jaune") {
-                grille[k+1][colonne].affecterJeton(UnJeton);
-                return k+1; // en cours
+        for (int k=0; k <6; k++){
+            if (grille[k][colonne].lireCouleurDuJeton() == null) {
+                grille[k][colonne].affecterJeton(UnJeton);
+                return k; // en cours
             }
         }
         return 0;
@@ -143,13 +143,13 @@ public class PlateauDeJeu {
         return false; 
     }
     
-    public void tasserLigne(int ligne){
-        for (int j=0; j<7;j++){
-            if(grille[ligne][j] == null){
-                for (int i = ligne; i<5; i++){  
-                    grille[i][j] = grille[i+1][j];
+    public void tasserLigne(int colonne){
+        for (int i=0; i<6;i++){
+            if(grille[i][colonne] == null){
+                for (int j = i; j<5; j++){  
+                    grille[j][colonne] = grille[j+1][colonne];
                 }
-                grille[5][j] = null;
+                grille[5][colonne] = null;
             }       
         }
     }
@@ -210,7 +210,7 @@ public class PlateauDeJeu {
     
     public Jeton recupererJeton(int ligne, int colonne){
         return grille[ligne][colonne].recupererJeton();
+        }
     }
     
-    }
-
+    
