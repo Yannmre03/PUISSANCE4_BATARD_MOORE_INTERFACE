@@ -5,19 +5,38 @@
 package puissance4_batard_moore;
 
 import java.util.Random;
-
+import java.util.ArrayList;
 /**
  *
  * @author Administrateur
  */
 public class Partie {
-    Joueur [] ListeJoueurs = new Joueur[2]; // tableau de joueurs 
-    Joueur joueurCourant;
-    PlateauDeJeu grilleJeu = new PlateauDeJeu();
+    private Joueur [] ListeJoueurs = new Joueur[2]; // tableau de joueurs 
+    private Joueur joueurCourant;
+    private PlateauDeJeu grilleJeu = new PlateauDeJeu();
+    
+    public Partie(Joueur joueur1, Joueur joueur2){
+        ListeJoueurs[0] = joueur1;
+        ListeJoueurs[1] = joueur2;
+    }
     
     public void attribuerCouleursAuxJoueurs(){      //temporaire
-        ListeJoueurs[0].affecterCouleur("rouge");       
-        ListeJoueurs[1].affecterCouleur("jaune");
+        Random r = new Random();
+        int tempInt = r.nextInt(1, 2);
+        if(tempInt == 1){
+            ListeJoueurs[0].affecterCouleur("rouge");
+            ListeJoueurs[1].affecterCouleur("jaune");
+        }
+        else{
+            ListeJoueurs[0].affecterCouleur("jaune");
+            ListeJoueurs[1].affecterCouleur("rouge");
+        }
+    }
+        
+    public void crerEtAffecterJeton(Joueur joueur1){
+        ArrayList<Jeton> jetons = new ArrayList();
+        for (int i=0; i < 30; i++){      
+        }
     }
     
     public void initialiserPartie(){
