@@ -166,34 +166,16 @@ public class PlateauDeJeu {
         grille[ligne][colonne].supprimerTrouNoir();
     }
     
-    public boolean placerDesintegrateur(int ligne, int colonne){
-        if (grille[ligne][colonne].presenceDesintegrateur() == false){
-            grille[ligne][colonne].placerDesintegrateur();
-            return true;
-        }
-        else{
-            return false;
-        }
+    public void placerDesintegrateur(int ligne, int colonne){
+        grille[ligne][colonne].placerDesintegrateur();
     }
     
-    public boolean supprimerDesintegrateur(int ligne, int colonne){
-        if (grille[ligne][colonne].presenceDesintegrateur() == true){
+    public void supprimerDesintegrateur(int ligne, int colonne){
             grille[ligne][colonne].supprimerDesintegrateur();
-            return true;
-        }
-        else{
-            return false;
-        }
     }
     
-    public boolean supprimerJeton(int ligne, int colonne){
-        if(grille[ligne][colonne].presenceJeton()){
+    public void supprimerJeton(int ligne, int colonne){
             grille[ligne][colonne].supprimerJeton();
-            return true;
-        }
-        else{
-            return false;
-        }
     }
     
     public Jeton recupererJeton(int ligne, int colonne){
