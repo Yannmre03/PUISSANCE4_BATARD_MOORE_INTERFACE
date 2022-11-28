@@ -36,7 +36,7 @@ public class PlateauDeJeu {
             return true;
     }
     public void afficherGrilleSurConsole(){
-        for (int i= 0; i <6; i++){
+        for (int i= 5; i >=0; i--){
            for (int j=0; j<7; j++){
                if (j == 6){
                    System.out.println(grille[i][j] + "\n");
@@ -158,24 +158,12 @@ public class PlateauDeJeu {
         return grille[5][colonne] != null;      
     }
     
-    public boolean placerTrouNoir(int ligne, int colonne){
-        if (grille[ligne][colonne].presenceTrouNoir() == false){
-            grille[ligne][colonne].placerTrouNoir();
-            return true;
-        }
-        else{
-            return false;
-        }
+    public void placerTrouNoir(int ligne, int colonne){
+        grille[ligne][colonne].placerTrouNoir();
     }
     
-    public boolean supprimerTrouNoir(int ligne, int colonne){
-        if (grille[ligne][colonne].presenceTrouNoir() == true){
-            grille[ligne][colonne].supprimerTrouNoir();
-            return true;
-        }
-        else{
-            return false;
-        }
+    public void supprimerTrouNoir(int ligne, int colonne){
+        grille[ligne][colonne].supprimerTrouNoir();
     }
     
     public boolean placerDesintegrateur(int ligne, int colonne){
