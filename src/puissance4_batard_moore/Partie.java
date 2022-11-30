@@ -75,35 +75,12 @@ public class Partie {
                 k -=1;
             }
         }
-        
     }
     
-    public void initialiserPartie(){
-        
-        for (int i=0; i<21; i++){
-            ListeJoueurs[0].ajouterJeton(new Jeton(ListeJoueurs[0].couleur));
-            ListeJoueurs[1].ajouterJeton(new Jeton(ListeJoueurs[1].couleur));
-        }
-        for (int i =0; i<5; i++){
-            Random rand = new Random();
-            int ligne = rand.nextInt(5);
-            int colonne = rand.nextInt(6);
-            plateau.placerTrouNoir(ligne, colonne);
-            if (i % 2 !=0){
-                plateau.placerDesintegrateur(ligne, colonne);
-            }
-        }
-        for (int j =0; j<3; j++){
-            Random rand = new Random();
-            int ligne = rand.nextInt(5);
-            int colonne = rand.nextInt(6);
-            if (plateau.placerTrouNoir(ligne, colonne) == false && plateau.placerDesintegrateur(ligne, colonne)){
-                plateau.placerDesintegrateur(ligne, colonne);
-                
-            }else{
-                j-=1;
-            }
-        }      
-    }
-    
+    public void initialiserPartie(){  
+        attribuerCouleursAuxJoueurs();
+        creerEtAffecterJeton(ListeJoueurs[0]);
+        creerEtAffecterJeton(ListeJoueurs[1]);
+        placerTrousNoirsEtDesintegrateurs();
+    }  
 }
