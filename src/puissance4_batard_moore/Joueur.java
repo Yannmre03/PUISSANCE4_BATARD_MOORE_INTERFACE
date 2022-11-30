@@ -5,7 +5,6 @@
 package puissance4_batard_moore;
 
 import java.util.ArrayList;
-import java.util.Vector;
 
 /**
  *

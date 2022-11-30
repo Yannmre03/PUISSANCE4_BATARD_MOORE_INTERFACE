@@ -143,7 +143,11 @@ public class PlateauDeJeu {
         return false; 
     }
     
-    public void tasserLigne(int colonne){
+    public boolean partieGagnee(String couleur){
+        return diagonaleDesencanteGagnantePourCouleur(couleur) || diagonaleMontanteGagnantePourCouleur(couleur) || colonneGagnantePourCouleur(couleur) || ligneGagnantePourCouleur(couleur);      
+    }
+    
+    public void tassercolonne(int colonne){
         for (int i=0; i<6;i++){
             if(grille[i][colonne] == null){
                 for (int j = i; j<5; j++){  
