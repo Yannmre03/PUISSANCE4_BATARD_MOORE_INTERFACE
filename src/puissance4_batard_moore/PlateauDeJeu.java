@@ -170,6 +170,14 @@ public class PlateauDeJeu {
         grille[ligne][colonne].placerDesintegrateur();
     }
     
+    public boolean presenceDesintegrateur(int ligne, int colonne){
+        return grille[ligne][colonne].presenceDesintegrateur();
+    }
+    
+    public boolean presenceTrouNoir(int ligne, int colonne){
+        return grille[ligne][colonne].presenceTrouNoir();
+    }
+    
     public void supprimerDesintegrateur(int ligne, int colonne){
         grille[ligne][colonne].supprimerDesintegrateur();
     }
