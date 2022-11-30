@@ -4,6 +4,7 @@
  */
 package puissance4_batard_moore;
 
+import java.util.ArrayList;
 import java.util.Vector;
 
 /**
@@ -13,36 +14,33 @@ import java.util.Vector;
 public class Joueur {
     private String nom;
     String couleur;
-    Vector reserveJetons = new Vector();
-    int nombreJetonsRestants;
-    int nombreDesintegrateurs = 0;
+    private ArrayList<Jeton> reserveJetons = new ArrayList();
+    private int nombreDesintegrateurs;
     
     public Joueur(String nom){
         this.nom = nom;
+        this.nombreDesintegrateurs = 0;
     }
     
     public void affecterCouleur(String couleur){
         this.couleur = couleur;
     }
+    public int nombreDeJetons(){
+        return reserveJetons.size();
+    }
+            
     public void ajouterJeton(Jeton newJeton){
         reserveJetons.add(newJeton);
-        nombreJetonsRestants +=1;
     }
     
-    
-    
-    
+    public Jeton jouerJeton(){
+        Jeton temp = reserveJetons.remove(0);
+        return temp;
+    }
     public void obtenirDesintegrateur(){
         nombreDesintegrateurs+=1;
     }
-    public boolean utiliserDesintegrateur(){
-        if(nombreDesintegrateurs >0){
-            nombreDesintegrateurs-=1;
-            return true;
-        }
-        else{
-            return false;
-        }
-        
+    public void utiliserDesintegrateur(){
+            nombreDesintegrateurs-=1;      
     }
 }
