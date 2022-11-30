@@ -15,8 +15,10 @@ public class PUISSANCE4_BATARD_MOORE {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        Jeton test = new Jeton("rouge");
-        System.out.println(test);
+        Joueur Julia = new Joueur("Julia");
+        Joueur Yann = new Joueur("Yann");
+        Partie nouvellePartie = new Partie(Julia, Yann);
+        nouvellePartie.lancerPartie();
         
     }
     

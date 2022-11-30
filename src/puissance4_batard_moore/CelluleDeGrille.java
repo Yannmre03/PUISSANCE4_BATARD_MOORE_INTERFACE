@@ -20,6 +20,7 @@ public class CelluleDeGrille {
         
                 
     }
+    
     public boolean presenceJeton(){
         return jetonCourant!= null;
     }

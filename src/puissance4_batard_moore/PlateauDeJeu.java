@@ -20,7 +20,7 @@ public class PlateauDeJeu {
     }
     public int ajouterJetonDansColonne(Jeton UnJeton, int colonne){
         for (int k=0; k <6; k++){
-            if (grille[k][colonne].lireCouleurDuJeton() == null) {
+            if (grille[k][colonne].lireCouleurDuJeton() == "vide") {
                 grille[k][colonne].affecterJeton(UnJeton);
                 return k; // en cours
             }
@@ -50,6 +50,7 @@ public class PlateauDeJeu {
     public boolean presenceJeton(int ligne, int colonne){
         return grille[ligne][colonne].presenceJeton() == true;
     }
+    
     
     public String lireCouleurDuJeton(int ligne, int colonne){
         return grille[ligne][colonne].lireCouleurDuJeton();
@@ -108,7 +109,7 @@ public class PlateauDeJeu {
                         if (compteur == 4){
                             return true;
                         }
-                        if (i==5 && j == 6){
+                        if (i==k || j == k){
                             break;
                         }
                     }
@@ -118,7 +119,7 @@ public class PlateauDeJeu {
         return false; 
     }
     
-    public boolean diagonaleDesencanteGagnantePourCouleur(String couleur){
+    public boolean diagonaleDesendanteGagnantePourCouleur(String couleur){
         int compteur = 0;
         
         for (int i=3; i<6; i++){
@@ -129,11 +130,11 @@ public class PlateauDeJeu {
                         }
                         else{
                             compteur = 0;
-                    }
+                        }
                         if (compteur == 4){
                             return true;
                         }
-                        if (i==0 && j == 6){
+                        if (i==k || j == k){
                             break;
                         }
                     }
@@ -144,7 +145,7 @@ public class PlateauDeJeu {
     }
     
     public boolean partieGagnee(String couleur){
-        return diagonaleDesencanteGagnantePourCouleur(couleur) || diagonaleMontanteGagnantePourCouleur(couleur) || colonneGagnantePourCouleur(couleur) || ligneGagnantePourCouleur(couleur);      
+        return diagonaleDesendanteGagnantePourCouleur(couleur) || diagonaleMontanteGagnantePourCouleur(couleur) || colonneGagnantePourCouleur(couleur) || ligneGagnantePourCouleur(couleur);      
     }
     
     public void tassercolonne(int colonne){
@@ -159,7 +160,7 @@ public class PlateauDeJeu {
     }
     
     public boolean colonneRemplie(int colonne){
-        return grille[5][colonne] != null;      
+        return grille[5][colonne].lireCouleurDuJeton() != "vide";      
     }
     
     public void placerTrouNoir(int ligne, int colonne){
@@ -176,6 +177,10 @@ public class PlateauDeJeu {
     
     public boolean presenceDesintegrateur(int ligne, int colonne){
         return grille[ligne][colonne].presenceDesintegrateur();
+    }
+    
+    public void supprimerJeton(int ligne, int colonne){
+        grille[ligne][ligne].supprimerJeton();
     }
     
     public boolean presenceTrouNoir(int ligne, int colonne){
