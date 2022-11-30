@@ -75,4 +75,22 @@ public class CelluleDeGrille {
         supprimerTrouNoir();
     }
     
+    @Override
+    public String toString () {                             // méthode string 
+        if (jetonCourant.lireCouleur() == "rouge"){
+            return "R";
+        }
+        if(jetonCourant.lireCouleur() == "jaune"){
+            return "J";
+        }
+        
+        if(avoirTrouNoir){
+            return "@";
+        }
+        if(avoirTrouNoir == false && avoirDesintegrateur){
+            return "D";
+        }
+    return ".";
+    }
+    
 }

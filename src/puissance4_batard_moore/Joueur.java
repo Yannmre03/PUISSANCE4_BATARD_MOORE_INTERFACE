@@ -29,6 +29,9 @@ public class Joueur {
         nombreJetonsRestants +=1;
     }
     
+    
+    
+    
     public void obtenirDesintegrateur(){
         nombreDesintegrateurs+=1;
     }
@@ -38,7 +41,7 @@ public class Joueur {
             return true;
         }
         else{
-            return false;   
+            return false;
         }
         
     }
