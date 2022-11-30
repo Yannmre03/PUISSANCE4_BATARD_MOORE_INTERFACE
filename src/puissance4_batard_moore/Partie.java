@@ -5,7 +5,7 @@
 package puissance4_batard_moore;
 
 import java.util.Random;
-import java.util.ArrayList;
+import java.util.Scanner;
 /**
  *
  * @author Administrateur
@@ -22,7 +22,7 @@ public class Partie {
     
     public void attribuerCouleursAuxJoueurs(){      //temporaire
         Random r = new Random();
-        int tempInt = r.nextInt(1, 2);
+        int tempInt = r.nextInt(0, 2);
         if(tempInt == 1){
             ListeJoueurs[0].affecterCouleur("rouge");
             ListeJoueurs[1].affecterCouleur("jaune");
@@ -83,4 +83,17 @@ public class Partie {
         creerEtAffecterJeton(ListeJoueurs[1]);
         placerTrousNoirsEtDesintegrateurs();
     }  
+    
+    public void lancerPartie(){
+        initialiserPartie();
+        Random jr = new Random();
+        int nvJoueur = jr.nextInt(0, 2);
+        joueurCourant = ListeJoueurs[nvJoueur];
+        while(plateau.partieGagnee(joueurCourant.couleur) || plateau.grilleRemplie()){
+          Scanner sc = new Scanner(System.in);
+          System.out.println("Dans quelle colonne veux tu placer ton jeton? (entre 0 et 6) \n");
+          int reponse = sc.nextInt(); // coupvalide? 
+          int ligne = plateau.ajouterJetonDansColonne(joueurCourant.jouerJeton(), reponse);
+        }   
+    }
 }
