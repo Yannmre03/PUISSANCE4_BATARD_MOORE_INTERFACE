@@ -191,10 +191,6 @@ public class PlateauDeJeu {
         grille[ligne][colonne].supprimerDesintegrateur();
     }
     
-    public void supprimerJeton(int ligne, int colonne){
-        grille[ligne][colonne].supprimerJeton();
-    }
-    
     public Jeton recupererJeton(int ligne, int colonne){
         return grille[ligne][colonne].recupererJeton();
     }

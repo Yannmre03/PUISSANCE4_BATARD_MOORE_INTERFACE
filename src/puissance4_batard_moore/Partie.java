@@ -82,6 +82,16 @@ public class Partie {
         placerTrousNoirsEtDesintegrateurs();
     }
     
+    public Jeton recupererUnJeton(){
+       int ligne, colonne; 
+       Scanner sc = new Scanner(System.in);
+       System.out.println("De quelle colonne veux tu recuperer ton jeton?");
+       colonne = sc.nextInt();
+       System.out.println("De quelle ligne veux tu recuperer ton jeton?");
+       ligne = sc.nextInt();
+       return plateau.recupererJeton(ligne, colonne);
+    }
+    
     public int [] poserJeton(Joueur joueurCourant,String couleur){
         int colonne;
             do {
@@ -110,6 +120,10 @@ public class Partie {
         int nvJoueur = jr.nextInt(0, 2);
         joueurCourant = ListeJoueurs[nvJoueur];
         while (plateau.partieGagnee(joueurCourant.couleur) || plateau.grilleRemplie()) {
+            Scanner sc = new Scanner(System.in);
+            System.out.println("tapez 1 pour poser un jeton, 2 pour récuperer un jeton, 3 pour désintegrer un eton adverse");
+            int choix = sc.nextInt();
+            // conditions à faire 
             int [] licolonne = poserJeton(joueurCourant, joueurCourant.couleur);    // poser la question si il veut utiliser desintegrateur 
             if (plateau.presenceTrouNoir(licolonne[0], licolonne[1])){
                 plateau.supprimerJeton(licolonne[0], licolonne[1]);
