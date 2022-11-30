@@ -77,7 +77,7 @@ public class Partie {
         }
     }
     
-    public void initialiserPartie(){  
+    public void initialiserPartie(){   
         attribuerCouleursAuxJoueurs();
         creerEtAffecterJeton(ListeJoueurs[0]);
         creerEtAffecterJeton(ListeJoueurs[1]);
