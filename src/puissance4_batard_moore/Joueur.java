@@ -39,6 +39,11 @@ public class Joueur {
     public void obtenirDesintegrateur(){
         nombreDesintegrateurs+=1;
     }
+    
+    public int getNbDesintegrateurs(){
+        return nombreDesintegrateurs;
+    }
+    
     public void utiliserDesintegrateur(){
             nombreDesintegrateurs-=1;      
     }
