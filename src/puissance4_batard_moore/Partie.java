@@ -156,32 +156,28 @@ public class Partie {
         Random jr = new Random();
         int nvJoueur = jr.nextInt(0, 2);
         joueurCourant = ListeJoueurs[nvJoueur];
-        while (plateau.partieGagnee(joueurCourant.couleur) != true || plateau.grilleRemplie() != true) {
-            
+        while (plateau.partieGagnee(joueurCourant.couleur) != true || plateau.grilleRemplie() != true) {            
             Scanner sc = new Scanner(System.in);
             int choix;
             do{
-            System.out.println("tapez 1 pour poser un jeton, 2 pour récuperer un jeton, 3 pour désintegrer un jeton adverse");
+            System.out.println("\nau tour de: " + joueurCourant.getName());
+            System.out.println("tapez 1 pour poser un jeton, 2 pour récuperer un jeton, 3 pour désintegrer un jeton adverse, 4 pour quitter la partie");
             choix = sc.nextInt();
             if(choix == 1){
-                poserJeton(joueurCourant, joueurCourant.couleur);
-            }
-            else if(choix == 2) {
-                joueurCourant.ajouterJeton(recupererUnJeton());
-                
-            }
-            else if(choix == 3 && joueurCourant.getNbDesintegrateurs()>0){
-                utiliserDesintegrateur();
-            }
-            plateau.afficherGrilleSurConsole();
-            }while ((choix != 3 && choix != 2 && choix != 1));
+                poserJeton(joueurCourant, joueurCourant.couleur);}
             
-            if(ListeJoueurs[0].couleur == joueurCourant.couleur){
-                joueurCourant = ListeJoueurs[1];
-            }
-            else{
-              joueurCourant = ListeJoueurs[0];  
-            }
+            else if(choix == 2) {
+                joueurCourant.ajouterJeton(recupererUnJeton());}
+            
+            else if(choix == 3 && joueurCourant.getNbDesintegrateurs()>0){
+                utiliserDesintegrateur();}
+            
+            plateau.afficherGrilleSurConsole();
+            }while ((choix != 3 && choix != 2 && choix != 1 && choix != 4));
+            
+            if(choix ==4){break;}
+            if(ListeJoueurs[0].couleur == joueurCourant.couleur){joueurCourant = ListeJoueurs[1];}
+            else{joueurCourant = ListeJoueurs[0];}
         }
     }
 }

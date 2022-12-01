@@ -47,4 +47,8 @@ public class Joueur {
     public void utiliserDesintegrateur(){
             nombreDesintegrateurs-=1;      
     }
+    
+    public String getName(){
+        return nom;
+    }
 }
