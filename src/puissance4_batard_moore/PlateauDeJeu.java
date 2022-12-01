@@ -19,10 +19,10 @@ public class PlateauDeJeu {
         }
     }
     public int ajouterJetonDansColonne(Jeton UnJeton, int colonne){
-        for (int k=0; k <6; k++){
-            if (grille[k][colonne].lireCouleurDuJeton() == "vide") {
-                grille[k][colonne].affecterJeton(UnJeton);
-                return k; // en cours
+        for (int i=0; i<6; i++){
+            if (grille[i][colonne].presenceJeton() != true) {
+                grille[i][colonne].affecterJeton(UnJeton);
+                return i; // en cours
             }
         }
         return 0;
@@ -39,7 +39,7 @@ public class PlateauDeJeu {
         for (int i= 5; i >=0; i--){
            for (int j=0; j<7; j++){
                if (j == 6){
-                   System.out.println(grille[i][j] + "\n");
+                   System.out.println(grille[i][j]);
                }
                else{
                    System.out.print(grille[i][j] + " " );
@@ -48,7 +48,7 @@ public class PlateauDeJeu {
         }
     }
     public boolean presenceJeton(int ligne, int colonne){
-        return grille[ligne][colonne].presenceJeton() == true;
+        return grille[ligne][colonne].presenceJeton();
     }
     
     
@@ -150,17 +150,26 @@ public class PlateauDeJeu {
     
     public void tassercolonne(int colonne){
         for (int i=0; i<6;i++){
-            if(grille[i][colonne] == null){
+            if(presenceJeton(i, colonne) != true){
                 for (int j = i; j<5; j++){  
                     grille[j][colonne] = grille[j+1][colonne];
                 }
-                grille[5][colonne] = null;
+                grille[5][colonne].supprimerJeton();
             }       
         }
     }
     
     public boolean colonneRemplie(int colonne){
         return grille[5][colonne].lireCouleurDuJeton() != "vide";      
+    }
+    
+    public int derniereLigneLibre(int colonne){
+        for(int i=0; i<6; i++){
+            if (presenceJeton(i, colonne) == false){
+                return i;
+            }
+        }
+        return 6;
     }
     
     public void placerTrouNoir(int ligne, int colonne){

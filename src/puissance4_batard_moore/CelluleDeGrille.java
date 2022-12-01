@@ -31,12 +31,7 @@ public class CelluleDeGrille {
     
     public String lireCouleurDuJeton () {
         if (jetonCourant != null){
-            if (jetonCourant.lireCouleur() == "rouge"){
-                return "rouge";
-            }
-            else {
-                return "Jaune";
-            }   
+            return jetonCourant.lireCouleur();
         }
         else{
         return "vide"; 
@@ -78,17 +73,17 @@ public class CelluleDeGrille {
     
     @Override
     public String toString () {                             // méthode string 
-        if (jetonCourant.lireCouleur() == "rouge"){
+        if (lireCouleurDuJeton() == "rouge"){
             return "R";
         }
-        if(jetonCourant.lireCouleur() == "jaune"){
+        if(lireCouleurDuJeton() == "jaune"){
             return "J";
         }
         
         if(avoirTrouNoir){
             return "@";
         }
-        if(avoirTrouNoir == false && avoirDesintegrateur){
+        else if(avoirDesintegrateur){
             return "D";
         }
     return ".";
