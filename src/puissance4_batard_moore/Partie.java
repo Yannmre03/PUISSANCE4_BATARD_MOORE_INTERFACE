@@ -89,7 +89,10 @@ public class Partie {
        colonne = sc.nextInt();
        System.out.println("De quelle ligne veux tu recuperer ton jeton?");
        ligne = sc.nextInt();
-       return plateau.recupererJeton(ligne, colonne);
+       Jeton temp = plateau.recupererJeton(ligne, colonne);
+       plateau.supprimerJeton(ligne, colonne);
+       plateau.tassercolonne(colonne);
+       return temp;
     }
     
     public int [] poserJeton(Joueur joueurCourant,String couleur){
@@ -111,7 +114,35 @@ public class Partie {
             } while (colonne < 0 || colonne > 6 || plateau.colonneRemplie(colonne));
             int ligne = plateau.ajouterJetonDansColonne(joueurCourant.jouerJeton(), colonne);
             int [] A = {ligne, colonne};
+            if (plateau.presenceTrouNoir(ligne, colonne)){
+                plateau.supprimerJeton(ligne, colonne);
+                plateau.supprimerTrouNoir(ligne, colonne);
+            }
+            else{
+            if (plateau.presenceDesintegrateur(ligne, colonne)){
+                joueurCourant.obtenirDesintegrateur();
+                plateau.supprimerDesintegrateur(ligne, colonne);
+            }
+            }
             return A;
+    }
+    
+    public void utiliserDesintegrateur(){       
+            Scanner sc = new Scanner(System.in);
+            int ligne;
+            int colonne;
+            joueurCourant.utiliserDesintegrateur();
+            do {
+                System.out.println("sur quelle ligne est le Jeton que vous voulez desintegrer?");
+                ligne = sc.nextInt();
+                System.out.println("sur quelle colonne est le Jeton que vous voulez desintegrer?");
+                colonne = sc.nextInt();
+                if(joueurCourant.couleur == plateau.lireCouleurDuJeton(ligne,colonne)){
+                    System.out.println("veuillez désintegrer un jeton adverse");
+                }
+            } while (joueurCourant.couleur == plateau.lireCouleurDuJeton(ligne,colonne)); 
+            plateau.supprimerJeton(ligne, colonne);
+            plateau.tassercolonne(colonne);
     }
     
     public void lancerPartie() {
@@ -121,21 +152,23 @@ public class Partie {
         joueurCourant = ListeJoueurs[nvJoueur];
         while (plateau.partieGagnee(joueurCourant.couleur) || plateau.grilleRemplie()) {
             Scanner sc = new Scanner(System.in);
-            System.out.println("tapez 1 pour poser un jeton, 2 pour récuperer un jeton, 3 pour désintegrer un eton adverse");
-            int choix = sc.nextInt();
-            // conditions à faire 
-            int [] licolonne = poserJeton(joueurCourant, joueurCourant.couleur);    // poser la question si il veut utiliser desintegrateur 
-            if (plateau.presenceTrouNoir(licolonne[0], licolonne[1])){
-                plateau.supprimerJeton(licolonne[0], licolonne[1]);
-                plateau.supprimerTrouNoir(licolonne[0], licolonne[1]);
+            int [] licolonne = {0,0};
+            int choix;
+            do{
+            System.out.println("tapez 1 pour poser un jeton, 2 pour récuperer un jeton, 3 pour désintegrer un jeton adverse");
+            choix = sc.nextInt();
+            if(choix == 1){
+                licolonne = poserJeton(joueurCourant, joueurCourant.couleur);
             }
-            else{
-            if (plateau.presenceDesintegrateur(licolonne[0], licolonne[1])){
-                joueurCourant.obtenirDesintegrateur();
+            else if(choix == 2) {
+                joueurCourant.ajouterJeton(recupererUnJeton());
+                
             }
+            else if(choix == 3 && joueurCourant.getNbDesintegrateurs()>1){
+                utiliserDesintegrateur();
             }
+            }while ((choix != 3 && choix != 2 && choix != 1) || (choix == 3 && joueurCourant.getNbDesintegrateurs()<1 ));
             
-
         }
     }
 }
