@@ -12,7 +12,7 @@ import java.util.ArrayList;
  */
 public class Joueur {
     private String nom;
-    String couleur;
+    private String couleur;
     private ArrayList<Jeton> reserveJetons = new ArrayList();
     private int nombreDesintegrateurs;
     
@@ -50,5 +50,9 @@ public class Joueur {
     
     public String getName(){
         return nom;
+    }
+    
+    public String getCouleur(){
+        return couleur;
     }
 }

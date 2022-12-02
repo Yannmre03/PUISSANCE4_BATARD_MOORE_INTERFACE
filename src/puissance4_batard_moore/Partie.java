@@ -37,7 +37,7 @@ public class Partie {
     public void creerEtAffecterJeton(Joueur joueur) {
         Jeton[] jetons = new Jeton[30];
         for (int i = 0; i < 30; i++) {
-            jetons[i] = new Jeton(joueur.couleur);
+            jetons[i] = new Jeton(joueur.getCouleur());
             joueur.ajouterJeton(jetons[i]);
         }
     }
@@ -142,10 +142,10 @@ public class Partie {
                 ligne = sc.nextInt();
                 System.out.println("sur quelle colonne est le Jeton que vous voulez desintegrer?");
                 colonne = sc.nextInt();
-                if(joueurCourant.couleur == plateau.lireCouleurDuJeton(ligne,colonne)){
+                if(joueurCourant.getCouleur() == plateau.lireCouleurDuJeton(ligne,colonne)){
                     System.out.println("veuillez désintegrer un jeton adverse");
                 }
-            } while (joueurCourant.couleur == plateau.lireCouleurDuJeton(ligne,colonne)); 
+            } while (joueurCourant.getCouleur() == plateau.lireCouleurDuJeton(ligne,colonne)); 
             joueurCourant.utiliserDesintegrateur();
             plateau.supprimerJeton(ligne, colonne);
             plateau.tassercolonne(colonne);
@@ -156,7 +156,7 @@ public class Partie {
         Random jr = new Random();
         int nvJoueur = jr.nextInt(0, 2);
         joueurCourant = ListeJoueurs[nvJoueur];
-        while (plateau.partieGagnee(joueurCourant.couleur) != true || plateau.grilleRemplie() != true) {            
+        while (plateau.partieGagnee(joueurCourant.getCouleur()) != true || plateau.grilleRemplie() != true) {            
             Scanner sc = new Scanner(System.in);
             int choix;
             do{
@@ -164,7 +164,7 @@ public class Partie {
             System.out.println("tapez 1 pour poser un jeton, 2 pour récuperer un jeton, 3 pour désintegrer un jeton adverse, 4 pour quitter la partie");
             choix = sc.nextInt();
             if(choix == 1){
-                poserJeton(joueurCourant, joueurCourant.couleur);}
+                poserJeton(joueurCourant, joueurCourant.getCouleur());}
             
             else if(choix == 2) {
                 joueurCourant.ajouterJeton(recupererUnJeton());}
@@ -176,7 +176,7 @@ public class Partie {
             }while ((choix != 3 && choix != 2 && choix != 1 && choix != 4));
             
             if(choix ==4){break;}
-            if(ListeJoueurs[0].couleur == joueurCourant.couleur){joueurCourant = ListeJoueurs[1];}
+            if(ListeJoueurs[0].getCouleur() == joueurCourant.getCouleur()){joueurCourant = ListeJoueurs[1];}
             else{joueurCourant = ListeJoueurs[0];}
         }
     }
