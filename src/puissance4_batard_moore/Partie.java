@@ -17,11 +17,21 @@ public class Partie {
     private Joueur joueurCourant;
     private PlateauDeJeu plateau = new PlateauDeJeu();
 
-    public Partie(Joueur joueur1, Joueur joueur2) { // il faut recreer le tableau? 
+    public Partie(String nomJ1, String nomJ2) { // il faut recreer le tableau? 
+        Joueur joueur1 = new Joueur(nomJ1);
+        Joueur joueur2 = new Joueur(nomJ2);
         ListeJoueurs[0] = joueur1;
         ListeJoueurs[1] = joueur2;
     }
+    
+    public Joueur [] getListeJoueur(){
+        return ListeJoueurs;
+    }
 
+    public PlateauDeJeu getPlateau(){
+        return plateau;
+    }
+    
     public void attribuerCouleursAuxJoueurs() {      //temporaire
         Random r = new Random();
         int tempInt = r.nextInt(0, 2);
@@ -80,7 +90,6 @@ public class Partie {
         creerEtAffecterJeton(ListeJoueurs[0]);
         creerEtAffecterJeton(ListeJoueurs[1]);
         placerTrousNoirsEtDesintegrateurs();
-        plateau.afficherGrilleSurConsole();
     }
     
     public Jeton recupererUnJeton(){

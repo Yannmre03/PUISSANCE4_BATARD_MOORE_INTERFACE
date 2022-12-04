@@ -18,6 +18,7 @@ public class Joueur {
     
     public Joueur(String nom){
         this.nom = nom;
+        this.couleur = null;
         this.nombreDesintegrateurs = 0;
     }
     

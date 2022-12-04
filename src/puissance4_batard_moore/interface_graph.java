@@ -3,16 +3,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package puissance4_batard_moore;
-
 /**
  *
  * @author Administrateur
  */
 public class interface_graph extends javax.swing.JFrame {
-
-    private Joueur[] ListeJoueurs = new Joueur[2]; // tableau de joueurs 
-    private Joueur joueurCourant;
-    private PlateauDeJeu plateau = new PlateauDeJeu();
+    private PlateauDeJeu plateauBis = new PlateauDeJeu();
 
     /**
      * Creates new form interface_graph
@@ -23,7 +19,7 @@ public class interface_graph extends javax.swing.JFrame {
         panneauInformationsPartie.setVisible(false);
         for (int i = 5; i >= 0; i--) {
             for (int j = 0; j < 7; j++) {
-                CelluleDeGrilleGraphique cellGraph = new CelluleDeGrilleGraphique(plateau.retournerCase(i, j));
+                CelluleDeGrilleGraphique cellGraph = new CelluleDeGrilleGraphique(plateauBis.retournerCase(i,j)); // comment prendre les cellulessans demarrer une partie? 
                 panneauGrille.add(cellGraph);
             }
         }
@@ -234,8 +230,22 @@ public class interface_graph extends javax.swing.JFrame {
 
     private void btn_startActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_startActionPerformed
         // TODO add your handling code here:
+        String joueur1 = nom_joueur_1.getText();
+        String joueur2 = nom_joueur_2.getText();
+        Partie game = new Partie(joueur1, joueur2);
+        game.initialiserPartie();
+        infoJ1Nom.setText(joueur1);
+        infoJ2Nom.setText(joueur2);
         panneauInformationsJoueurs.setVisible(true);
         panneauInformationsPartie.setVisible(true);
+        panneauGrille.removeAll();
+        for (int i = 5; i >= 0; i--) {
+            for (int j = 0; j < 7; j++) {
+                CelluleDeGrilleGraphique cellGraph = new CelluleDeGrilleGraphique(game.getPlateau().retournerCase(i,j)); // comment prendre les cellulessans demarrer une partie? 
+                panneauGrille.add(cellGraph);
+            }
+        }
+        panneauGrille.repaint();
     }//GEN-LAST:event_btn_startActionPerformed
 
     /**
@@ -272,7 +282,10 @@ public class interface_graph extends javax.swing.JFrame {
             }
         });
     }
-
+    
+    
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_col_0;
     private javax.swing.JButton btn_col_1;
