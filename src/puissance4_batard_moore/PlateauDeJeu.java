@@ -27,6 +27,11 @@ public class PlateauDeJeu {
         }
         return 0;
     }
+    
+    public CelluleDeGrille retournerCase(int ligne, int colonne){
+        return grille[ligne][colonne];
+    }
+    
     public boolean grilleRemplie(){
             for (int j=0; j<7; j++){
                 if (grille[5][j] == null){
