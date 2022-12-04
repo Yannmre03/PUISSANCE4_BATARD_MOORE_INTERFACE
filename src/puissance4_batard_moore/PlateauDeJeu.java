@@ -155,11 +155,11 @@ public class PlateauDeJeu {
     
     public void tassercolonne(int colonne){
         for (int i=0; i<6;i++){
-            if(presenceJeton(i, colonne) != true){
+            if(presenceJeton(i, colonne) == false){
                 for (int j = i; j<5; j++){  
                     grille[j][colonne] = grille[j+1][colonne];
                 }
-                grille[5][colonne].supprimerJeton();
+                grille[5][colonne] = new CelluleDeGrille();
             }       
         }
     }
