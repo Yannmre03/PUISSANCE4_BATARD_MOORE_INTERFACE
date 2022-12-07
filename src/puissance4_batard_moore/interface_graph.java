@@ -19,7 +19,7 @@ public class interface_graph extends javax.swing.JFrame {
         panneauInformationsPartie.setVisible(false);
         for (int i = 5; i >= 0; i--) {
             for (int j = 0; j < 7; j++) {
-                CelluleDeGrilleGraphique cellGraph = new CelluleDeGrilleGraphique(plateauBis.retournerCase(i,j)); // comment prendre les cellulessans demarrer une partie? 
+                CelluleDeGrilleGraphique cellGraph = new CelluleDeGrilleGraphique(plateauBis.retournerCase(i,j)); // comment prendre les cellules sans demarrer une partie? 
                 panneauGrille.add(cellGraph);
             }
         }
@@ -174,6 +174,16 @@ public class interface_graph extends javax.swing.JFrame {
         getContentPane().add(panneauCreationPartie, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 70, 290, 100));
 
         btn_col_0.setText("1");
+        btn_col_0.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_col_0MouseClicked(evt);
+            }
+        });
+        btn_col_0.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_col_0ActionPerformed(evt);
+            }
+        });
         getContentPane().add(btn_col_0, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 30, -1, -1));
 
         btn_col_1.setText("2");
@@ -236,6 +246,11 @@ public class interface_graph extends javax.swing.JFrame {
         game.initialiserPartie();
         infoJ1Nom.setText(joueur1);
         infoJ2Nom.setText(joueur2);
+        infoJ1Couleur.setText(game.getListeJoueur()[0].getCouleur());
+        infoJ2Couleur.setText(game.getListeJoueur()[1].getCouleur());
+        infoJ1Desintegrateurs.setText(Integer.toString(game.getListeJoueur()[0].getNbDesintegrateurs()));
+        infoJ2Desintegrateurs.setText(Integer.toString(game.getListeJoueur()[1].getNbDesintegrateurs()));
+        infoJoueurCourant.setText(game.getJoueurCourant().getName());
         panneauInformationsJoueurs.setVisible(true);
         panneauInformationsPartie.setVisible(true);
         panneauGrille.removeAll();
@@ -245,8 +260,23 @@ public class interface_graph extends javax.swing.JFrame {
                 panneauGrille.add(cellGraph);
             }
         }
+        plateauBis = game.getPlateau();
+        game.setNewPlateau(plateauBis);
         panneauGrille.repaint();
+        btn_start.setEnabled(false);
+        
+        
+        
     }//GEN-LAST:event_btn_startActionPerformed
+
+    private void btn_col_0ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_col_0ActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_btn_col_0ActionPerformed
+
+    private void btn_col_0MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_col_0MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_col_0MouseClicked
 
     /**
      * @param args the command line arguments
@@ -278,12 +308,12 @@ public class interface_graph extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new interface_graph().setVisible(true);
+                interface_graph newInterface = new interface_graph();
+                newInterface.setVisible(true);
+                
             }
         });
     }
-    
-    
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
