@@ -34,7 +34,7 @@ public class PlateauDeJeu {
     
     public boolean grilleRemplie(){
             for (int j=0; j<7; j++){
-                if (grille[5][j] == null){
+                if (grille[5][j].presenceJeton() == false){
                     return false;
                 }
             }

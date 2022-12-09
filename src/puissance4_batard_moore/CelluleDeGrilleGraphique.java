@@ -31,7 +31,7 @@ public class CelluleDeGrilleGraphique extends JButton{
             setIcon(img_trouNoir);
         }else if(celluleAssociee.presenceDesintegrateur()){
             setIcon(img_desintegrateur);
-        }
+        }else{
         switch(celluleAssociee.lireCouleurDuJeton()){
             case "jaune" : 
                 setIcon(img_jaune);
@@ -43,7 +43,7 @@ public class CelluleDeGrilleGraphique extends JButton{
                 setIcon(img_vide);
                 break;
     }
-        
+        }
         
         
     }

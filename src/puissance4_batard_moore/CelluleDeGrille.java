@@ -16,10 +16,14 @@ public class CelluleDeGrille {
     public CelluleDeGrille(){
         jetonCourant = null;
         avoirTrouNoir = false;
-        avoirDesintegrateur = false;
-        
-                
+        avoirDesintegrateur = false;            
     }
+    
+    public Jeton getJetonCourant(){
+        return jetonCourant;
+    }
+    
+    
     
     public boolean presenceJeton(){
         return jetonCourant!= null;

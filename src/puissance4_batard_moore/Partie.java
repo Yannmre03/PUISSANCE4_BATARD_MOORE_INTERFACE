@@ -16,12 +16,17 @@ public class Partie {
     private Joueur [] ListeJoueurs = new Joueur[2]; // tableau de joueurs 
     private Joueur joueurCourant;
     private PlateauDeJeu plateau = new PlateauDeJeu();
-
+    
     public Partie(String nomJ1, String nomJ2) { // il faut recreer le tableau? 
         Joueur joueur1 = new Joueur(nomJ1);
         Joueur joueur2 = new Joueur(nomJ2);
         ListeJoueurs[0] = joueur1;
         ListeJoueurs[1] = joueur2;
+    }
+    
+    
+    public void setNewPlateau(PlateauDeJeu plateauBis){
+        plateau = plateauBis;
     }
     
     public Joueur [] getListeJoueur(){
@@ -31,6 +36,15 @@ public class Partie {
     public PlateauDeJeu getPlateau(){
         return plateau;
     }
+    
+    public Joueur getJoueurCourant(){
+        return joueurCourant;
+    }
+    
+    public void setJoueurCourant(Joueur joueurCourant){
+         this.joueurCourant = joueurCourant;
+    }
+    
     
     public void attribuerCouleursAuxJoueurs() {      //temporaire
         Random r = new Random();
@@ -90,6 +104,11 @@ public class Partie {
         creerEtAffecterJeton(ListeJoueurs[0]);
         creerEtAffecterJeton(ListeJoueurs[1]);
         placerTrousNoirsEtDesintegrateurs();
+        Random jr = new Random();
+        int nvJoueur = jr.nextInt(0, 2);
+        joueurCourant = ListeJoueurs[nvJoueur];
+        
+        
     }
     
     public Jeton recupererUnJeton(){
@@ -162,16 +181,14 @@ public class Partie {
     
     public void lancerPartie() {
         initialiserPartie();
-        Random jr = new Random();
-        int nvJoueur = jr.nextInt(0, 2);
-        joueurCourant = ListeJoueurs[nvJoueur];
+        
         while (plateau.partieGagnee(joueurCourant.getCouleur()) != true || plateau.grilleRemplie() != true) {            
-            Scanner sc = new Scanner(System.in);
-            int choix;
+            
+            int choix=4;
             do{
             System.out.println("\nau tour de: " + joueurCourant.getName());
             System.out.println("tapez 1 pour poser un jeton, 2 pour récuperer un jeton, 3 pour désintegrer un jeton adverse, 4 pour quitter la partie");
-            choix = sc.nextInt();
+            //scanner
             if(choix == 1){
                 poserJeton(joueurCourant, joueurCourant.getCouleur());}
             
