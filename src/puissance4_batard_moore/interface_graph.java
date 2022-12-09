@@ -3,13 +3,16 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package puissance4_batard_moore;
+
 /**
  *
  * @author Administrateur
  */
 public class interface_graph extends javax.swing.JFrame {
+
     private PlateauDeJeu plateauBis = new PlateauDeJeu();
-    private Partie gameBis = new Partie("temp1" , "temp2");
+    private Partie gameBis = new Partie("temp1", "temp2");
+
     /**
      * Creates new form interface_graph
      */
@@ -17,9 +20,10 @@ public class interface_graph extends javax.swing.JFrame {
         initComponents();
         panneauInformationsJoueurs.setVisible(false);
         panneauInformationsPartie.setVisible(false);
+        panneauDesintegrer.setVisible(false);
         for (int i = 5; i >= 0; i--) {
             for (int j = 0; j < 7; j++) {
-                CelluleDeGrilleGraphique cellGraph = new CelluleDeGrilleGraphique(plateauBis.retournerCase(i,j)); // comment prendre les cellules sans demarrer une partie? 
+                CelluleDeGrilleGraphique cellGraph = new CelluleDeGrilleGraphique(plateauBis.retournerCase(i, j));
                 panneauGrille.add(cellGraph);
             }
         }
@@ -69,6 +73,8 @@ public class interface_graph extends javax.swing.JFrame {
         btn_col_4 = new javax.swing.JButton();
         btn_col_5 = new javax.swing.JButton();
         btn_col_6 = new javax.swing.JButton();
+        panneauDesintegrer = new javax.swing.JPanel();
+        desintegrer_recuperer = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -96,7 +102,7 @@ public class interface_graph extends javax.swing.JFrame {
 
         panneauInformationsPartie.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, -1, 70));
 
-        getContentPane().add(panneauInformationsPartie, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 490, 290, 140));
+        getContentPane().add(panneauInformationsPartie, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 500, 290, 140));
 
         panneauInformationsJoueurs.setBackground(new java.awt.Color(255, 51, 255));
         panneauInformationsJoueurs.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -144,7 +150,7 @@ public class interface_graph extends javax.swing.JFrame {
         infoJ2Desintegrateurs.setText("nbDesinte2");
         panneauInformationsJoueurs.add(infoJ2Desintegrateurs, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 220, -1, -1));
 
-        getContentPane().add(panneauInformationsJoueurs, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 190, 290, 280));
+        getContentPane().add(panneauInformationsJoueurs, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 160, 290, 280));
 
         panneauCreationPartie.setBackground(new java.awt.Color(102, 255, 255));
         panneauCreationPartie.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -171,7 +177,7 @@ public class interface_graph extends javax.swing.JFrame {
         });
         panneauCreationPartie.add(btn_start, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 70, -1, -1));
 
-        getContentPane().add(panneauCreationPartie, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 70, 290, 100));
+        getContentPane().add(panneauCreationPartie, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 60, 290, 100));
 
         btn_col_0.setText("1");
         btn_col_0.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -234,6 +240,19 @@ public class interface_graph extends javax.swing.JFrame {
         });
         getContentPane().add(btn_col_6, new org.netbeans.lib.awtextra.AbsoluteConstraints(666, 30, -1, -1));
 
+        panneauDesintegrer.setBackground(new java.awt.Color(0, 255, 255));
+        panneauDesintegrer.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        desintegrer_recuperer.setText("Desintegrer/ Recuperer un jeton");
+        desintegrer_recuperer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                desintegrer_recupererActionPerformed(evt);
+            }
+        });
+        panneauDesintegrer.add(desintegrer_recuperer, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 260, 30));
+
+        getContentPane().add(panneauDesintegrer, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 440, 290, 60));
+
         setBounds(0, 0, 1030, 687);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -243,96 +262,145 @@ public class interface_graph extends javax.swing.JFrame {
 
     private void btn_col_6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_col_6ActionPerformed
         // TODO add your handling code here:
-        if(plateauBis.colonneRemplie(6)) {
-                    infoMessage.setText("Attention! La colonne que vous avez choisi est déjà remplie. \n");
-                    panneauInformationsPartie.repaint();
-                    
-        }
-        else{
+        if (plateauBis.colonneRemplie(6)) {
+            infoMessage.setText("Attention! La colonne que vous avez choisi est déjà remplie. \n");
+            panneauInformationsPartie.repaint();
+
+        } else {
             int ligne = plateauBis.derniereLigneLibre(6);
-            if (plateauBis.presenceTrouNoir(ligne, 6)){
+            if (plateauBis.presenceTrouNoir(ligne, 6)) {
                 plateauBis.supprimerTrouNoir(ligne, 6);
-            }
-            else if(plateauBis.presenceDesintegrateur(ligne, 6)){
+            } else if (plateauBis.presenceDesintegrateur(ligne, 6)) {
                 gameBis.getJoueurCourant().obtenirDesintegrateur();
                 plateauBis.supprimerDesintegrateur(ligne, 6);
-                ligne = plateauBis.ajouterJetonDansColonne(gameBis.getJoueurCourant().jouerJeton(), 6);                
-            }else{
+                ligne = plateauBis.ajouterJetonDansColonne(gameBis.getJoueurCourant().jouerJeton(), 6);
+            } else {
                 ligne = plateauBis.ajouterJetonDansColonne(gameBis.getJoueurCourant().jouerJeton(), 6);
             }
             panneauGrille.repaint();
-            if(plateauBis.partieGagnee(gameBis.getJoueurCourant().getCouleur())){
-                infoMessage.setText("Bravo " + gameBis.getJoueurCourant().getName() + " , vous avez GAGNÉ ! "); 
-                turnButtonsOff();
-            }else if(plateauBis.grilleRemplie()){
-                infoMessage.setText("EGALITÉ, la grille est remplie");      
+            boolean victoireJ1 = plateauBis.partieGagnee(gameBis.getListeJoueur()[0].getCouleur());
+            boolean victoireJ2 = plateauBis.partieGagnee(gameBis.getListeJoueur()[1].getCouleur());
+            if (victoireJ1 && !victoireJ2) {
+                infoMessage.setText("Bravo " + gameBis.getListeJoueur()[0].getName() + " , vous avez GAGNÉ ! ");
                 turnButtonsOff();
             }
-            
+            if (victoireJ2 && !victoireJ1) {
+                infoMessage.setText("Bravo " + gameBis.getListeJoueur()[1].getName() + " , vous avez GAGNÉ ! ");
+                turnButtonsOff();
+            }
+            if (victoireJ2 && victoireJ1) {
+                if (gameBis.getJoueurCourant() == gameBis.getListeJoueur()[1]) {
+                    infoMessage.setText("Bravo " + gameBis.getListeJoueur()[0].getName() + " , vous avez GAGNÉ ! (faute de jeu)");
+                    turnButtonsOff();
+                }
+                if (gameBis.getJoueurCourant() == gameBis.getListeJoueur()[0]) {
+                    infoMessage.setText("Bravo " + gameBis.getListeJoueur()[1].getName() + " , vous avez GAGNÉ ! (faute de jeu)");
+                    turnButtonsOff();
+                }
+            }
+            if (plateauBis.grilleRemplie()) {
+                infoMessage.setText("EGALITÉ, la grille est remplie");
+                turnButtonsOff();
+            }
+
             changeJoueurCourant();
+            actualiserNbDesintegrateurs();
         }
-        
-        
+
+
     }//GEN-LAST:event_btn_col_6ActionPerformed
 
     private void btn_col_1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_col_1ActionPerformed
         // TODO add your handling code here:
-        if(plateauBis.colonneRemplie(1)) {
-                    infoMessage.setText("Attention! La colonne que vous avez choisi est déjà remplie. \n");
-                    panneauInformationsPartie.repaint();
-        }else{
-        int ligne = plateauBis.derniereLigneLibre(1);
-            if (plateauBis.presenceTrouNoir(ligne, 1)){
+        if (plateauBis.colonneRemplie(1)) {
+            infoMessage.setText("Attention! La colonne que vous avez choisi est déjà remplie. \n");
+            panneauInformationsPartie.repaint();
+        } else {
+            int ligne = plateauBis.derniereLigneLibre(1);
+            if (plateauBis.presenceTrouNoir(ligne, 1)) {
                 plateauBis.supprimerTrouNoir(ligne, 1);
-            }
-            else if(plateauBis.presenceDesintegrateur(ligne, 1)){
+            } else if (plateauBis.presenceDesintegrateur(ligne, 1)) {
                 gameBis.getJoueurCourant().obtenirDesintegrateur();
                 plateauBis.supprimerDesintegrateur(ligne, 1);
-                ligne = plateauBis.ajouterJetonDansColonne(gameBis.getJoueurCourant().jouerJeton(), 1);                
-            }else{
+                ligne = plateauBis.ajouterJetonDansColonne(gameBis.getJoueurCourant().jouerJeton(), 1);
+            } else {
                 ligne = plateauBis.ajouterJetonDansColonne(gameBis.getJoueurCourant().jouerJeton(), 1);
             }
             panneauGrille.repaint();
-            if(plateauBis.partieGagnee(gameBis.getJoueurCourant().getCouleur())){
-                infoMessage.setText("Bravo " + gameBis.getJoueurCourant().getName() + " , vous avez GAGNÉ ! "); 
-                turnButtonsOff();
-            }else if(plateauBis.grilleRemplie()){
-                infoMessage.setText("EGALITÉ, la grille est remplie");   
+            boolean victoireJ1 = plateauBis.partieGagnee(gameBis.getListeJoueur()[0].getCouleur());
+            boolean victoireJ2 = plateauBis.partieGagnee(gameBis.getListeJoueur()[1].getCouleur());
+            if (victoireJ1 && !victoireJ2) {
+                infoMessage.setText("Bravo " + gameBis.getListeJoueur()[0].getName() + " , vous avez GAGNÉ ! ");
                 turnButtonsOff();
             }
- 
+            if (victoireJ2 && !victoireJ1) {
+                infoMessage.setText("Bravo " + gameBis.getListeJoueur()[1].getName() + " , vous avez GAGNÉ ! ");
+                turnButtonsOff();
+            }
+            if (victoireJ2 && victoireJ1) {
+                if (gameBis.getJoueurCourant() == gameBis.getListeJoueur()[1]) {
+                    infoMessage.setText("Bravo " + gameBis.getListeJoueur()[0].getName() + " , vous avez GAGNÉ ! (faute de jeu)");
+                    turnButtonsOff();
+                }
+                if (gameBis.getJoueurCourant() == gameBis.getListeJoueur()[0]) {
+                    infoMessage.setText("Bravo " + gameBis.getListeJoueur()[1].getName() + " , vous avez GAGNÉ ! (faute de jeu)");
+                    turnButtonsOff();
+                }
+            }
+            if (plateauBis.grilleRemplie()) {
+                infoMessage.setText("EGALITÉ, la grille est remplie");
+                turnButtonsOff();
+            }
+
             changeJoueurCourant();
+            actualiserNbDesintegrateurs();
         }
     }//GEN-LAST:event_btn_col_1ActionPerformed
 
     private void btn_col_3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_col_3ActionPerformed
         // TODO add your handling code here:
-        if(plateauBis.colonneRemplie(3)) {
-                    infoMessage.setText("Attention! La colonne que vous avez choisi est déjà remplie. \n");
-                    panneauInformationsPartie.repaint();
-        }else{
-        int ligne = plateauBis.derniereLigneLibre(3);
-            if (plateauBis.presenceTrouNoir(ligne, 3)){
+        if (plateauBis.colonneRemplie(3)) {
+            infoMessage.setText("Attention! La colonne que vous avez choisi est déjà remplie. \n");
+            panneauInformationsPartie.repaint();
+        } else {
+            int ligne = plateauBis.derniereLigneLibre(3);
+            if (plateauBis.presenceTrouNoir(ligne, 3)) {
                 plateauBis.supprimerTrouNoir(ligne, 3);
-            }
-            else if(plateauBis.presenceDesintegrateur(ligne, 3)){
+            } else if (plateauBis.presenceDesintegrateur(ligne, 3)) {
                 gameBis.getJoueurCourant().obtenirDesintegrateur();
                 plateauBis.supprimerDesintegrateur(ligne, 3);
-                ligne = plateauBis.ajouterJetonDansColonne(gameBis.getJoueurCourant().jouerJeton(), 3);                
-            }else{
+                ligne = plateauBis.ajouterJetonDansColonne(gameBis.getJoueurCourant().jouerJeton(), 3);
+            } else {
                 ligne = plateauBis.ajouterJetonDansColonne(gameBis.getJoueurCourant().jouerJeton(), 3);
             }
             panneauGrille.repaint();
-            if(plateauBis.partieGagnee(gameBis.getJoueurCourant().getCouleur())){
-                infoMessage.setText("Bravo " + gameBis.getJoueurCourant().getName() + " , vous avez GAGNÉ ! ");   
-                turnButtonsOff();
-            }else if(plateauBis.grilleRemplie()){
-                infoMessage.setText("EGALITÉ, la grille est remplie"); 
+            boolean victoireJ1 = plateauBis.partieGagnee(gameBis.getListeJoueur()[0].getCouleur());
+            boolean victoireJ2 = plateauBis.partieGagnee(gameBis.getListeJoueur()[1].getCouleur());
+            if (victoireJ1 && !victoireJ2) {
+                infoMessage.setText("Bravo " + gameBis.getListeJoueur()[0].getName() + " , vous avez GAGNÉ ! ");
                 turnButtonsOff();
             }
-
+            if (victoireJ2 && !victoireJ1) {
+                infoMessage.setText("Bravo " + gameBis.getListeJoueur()[1].getName() + " , vous avez GAGNÉ ! ");
+                turnButtonsOff();
+            }
+            if (victoireJ2 && victoireJ1) {
+                if (gameBis.getJoueurCourant() == gameBis.getListeJoueur()[1]) {
+                    infoMessage.setText("Bravo " + gameBis.getListeJoueur()[0].getName() + " , vous avez GAGNÉ ! (faute de jeu)");
+                    turnButtonsOff();
+                }
+                if (gameBis.getJoueurCourant() == gameBis.getListeJoueur()[0]) {
+                    infoMessage.setText("Bravo " + gameBis.getListeJoueur()[1].getName() + " , vous avez GAGNÉ ! (faute de jeu)");
+                    turnButtonsOff();
+                }
+            }
+            if (plateauBis.grilleRemplie()) {
+                infoMessage.setText("EGALITÉ, la grille est remplie");
+                turnButtonsOff();
+            }
             changeJoueurCourant();
-            
+            actualiserNbDesintegrateurs();
+
         }
     }//GEN-LAST:event_btn_col_3ActionPerformed
 
@@ -348,13 +416,14 @@ public class interface_graph extends javax.swing.JFrame {
         infoJ2Couleur.setText(game.getListeJoueur()[1].getCouleur());
         infoJ1Desintegrateurs.setText(Integer.toString(game.getListeJoueur()[0].getNbDesintegrateurs()));
         infoJ2Desintegrateurs.setText(Integer.toString(game.getListeJoueur()[1].getNbDesintegrateurs()));
+
         infoJoueurCourant.setText(game.getJoueurCourant().getName());
         panneauInformationsJoueurs.setVisible(true);
         panneauInformationsPartie.setVisible(true);
         panneauGrille.removeAll();
         for (int i = 5; i >= 0; i--) {
             for (int j = 0; j < 7; j++) {
-                CelluleDeGrilleGraphique cellGraph = new CelluleDeGrilleGraphique(game.getPlateau().retournerCase(i,j)); // comment prendre les cellulessans demarrer une partie? 
+                CelluleDeGrilleGraphique cellGraph = new CelluleDeGrilleGraphique(game.getPlateau().retournerCase(i, j)); // comment prendre les cellulessans demarrer une partie? 
                 panneauGrille.add(cellGraph);
             }
         }
@@ -362,40 +431,58 @@ public class interface_graph extends javax.swing.JFrame {
         game.setNewPlateau(plateauBis);
         panneauGrille.repaint();
         btn_start.setEnabled(false);
+        desintegrer_recuperer.setEnabled(false);
         gameBis = game;
-        
-        
-        
+
+
     }//GEN-LAST:event_btn_startActionPerformed
 
     private void btn_col_0ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_col_0ActionPerformed
         // TODO add your handling code here:
-        if(plateauBis.colonneRemplie(0)) {
-                    infoMessage.setText("Attention! La colonne que vous avez choisi est déjà remplie. \n");
-                    panneauInformationsPartie.repaint();
-                    
-        }else{
-        int ligne = plateauBis.derniereLigneLibre(0);
-            if (plateauBis.presenceTrouNoir(ligne, 0)){
+        if (plateauBis.colonneRemplie(0)) {
+            infoMessage.setText("Attention! La colonne que vous avez choisi est déjà remplie. \n");
+            panneauInformationsPartie.repaint();
+
+        } else {
+            int ligne = plateauBis.derniereLigneLibre(0);
+            if (plateauBis.presenceTrouNoir(ligne, 0)) {
                 plateauBis.supprimerTrouNoir(ligne, 0);
-            }
-            else if(plateauBis.presenceDesintegrateur(ligne, 0)){
+            } else if (plateauBis.presenceDesintegrateur(ligne, 0)) {
                 gameBis.getJoueurCourant().obtenirDesintegrateur();
                 plateauBis.supprimerDesintegrateur(ligne, 0);
-                ligne = plateauBis.ajouterJetonDansColonne(gameBis.getJoueurCourant().jouerJeton(), 0);                
-            }else{
+                ligne = plateauBis.ajouterJetonDansColonne(gameBis.getJoueurCourant().jouerJeton(), 0);
+            } else {
                 ligne = plateauBis.ajouterJetonDansColonne(gameBis.getJoueurCourant().jouerJeton(), 0);
             }
             panneauGrille.repaint();
-            if(plateauBis.partieGagnee(gameBis.getJoueurCourant().getCouleur())){
-                infoMessage.setText("Bravo " + gameBis.getJoueurCourant().getName() + " , vous avez GAGNÉ ! ");   
-                turnButtonsOff();
-            }else if(plateauBis.grilleRemplie()){
-                infoMessage.setText("EGALITÉ, la grille est remplie");   
+            boolean victoireJ1 = plateauBis.partieGagnee(gameBis.getListeJoueur()[0].getCouleur());
+            boolean victoireJ2 = plateauBis.partieGagnee(gameBis.getListeJoueur()[1].getCouleur());
+            if (victoireJ1 && !victoireJ2) {
+                infoMessage.setText("Bravo " + gameBis.getListeJoueur()[0].getName() + " , vous avez GAGNÉ ! ");
                 turnButtonsOff();
             }
-     
+            if (victoireJ2 && !victoireJ1) {
+                infoMessage.setText("Bravo " + gameBis.getListeJoueur()[1].getName() + " , vous avez GAGNÉ ! ");
+                turnButtonsOff();
+            }
+            if (victoireJ2 && victoireJ1) {
+                if (gameBis.getJoueurCourant() == gameBis.getListeJoueur()[1]) {
+                    infoMessage.setText("Bravo " + gameBis.getListeJoueur()[0].getName() + " , vous avez GAGNÉ ! (faute de jeu)");
+                    turnButtonsOff();
+                }
+                if (gameBis.getJoueurCourant() == gameBis.getListeJoueur()[0]) {
+                    infoMessage.setText("Bravo " + gameBis.getListeJoueur()[1].getName() + " , vous avez GAGNÉ ! (faute de jeu)");
+                    turnButtonsOff();
+                }
+            }
+            if (plateauBis.grilleRemplie()) {
+                infoMessage.setText("EGALITÉ, la grille est remplie");
+                turnButtonsOff();
+            }
+
+            actualiserNbDesintegrateurs();
             changeJoueurCourant();
+
         }
     }//GEN-LAST:event_btn_col_0ActionPerformed
 
@@ -405,105 +492,195 @@ public class interface_graph extends javax.swing.JFrame {
 
     private void btn_col_2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_col_2ActionPerformed
         // TODO add your handling code here:
-        if(plateauBis.colonneRemplie(2)) {
-                    infoMessage.setText("Attention! La colonne que vous avez choisi est déjà remplie. \n");
-                    panneauInformationsPartie.repaint();
-                    
-        }else{
-        int ligne = plateauBis.derniereLigneLibre(2);
-            if (plateauBis.presenceTrouNoir(ligne, 2)){
+        if (plateauBis.colonneRemplie(2)) {
+            infoMessage.setText("Attention! La colonne que vous avez choisi est déjà remplie. \n");
+            panneauInformationsPartie.repaint();
+
+        } else {
+            int ligne = plateauBis.derniereLigneLibre(2);
+            if (plateauBis.presenceTrouNoir(ligne, 2)) {
                 plateauBis.supprimerTrouNoir(ligne, 2);
-            }
-            else if(plateauBis.presenceDesintegrateur(ligne, 2)){
+            } else if (plateauBis.presenceDesintegrateur(ligne, 2)) {
                 gameBis.getJoueurCourant().obtenirDesintegrateur();
                 plateauBis.supprimerDesintegrateur(ligne, 2);
-                ligne = plateauBis.ajouterJetonDansColonne(gameBis.getJoueurCourant().jouerJeton(), 2);                
-            }else{
+                ligne = plateauBis.ajouterJetonDansColonne(gameBis.getJoueurCourant().jouerJeton(), 2);
+            } else {
                 ligne = plateauBis.ajouterJetonDansColonne(gameBis.getJoueurCourant().jouerJeton(), 2);
             }
             panneauGrille.repaint();
-            if(plateauBis.partieGagnee(gameBis.getJoueurCourant().getCouleur())){
-                infoMessage.setText("Bravo " + gameBis.getJoueurCourant().getName() + " , vous avez GAGNÉ ! ");
-                turnButtonsOff();
-            }else if(plateauBis.grilleRemplie()){
-                infoMessage.setText("EGALITÉ, la grille est remplie");  
+            boolean victoireJ1 = plateauBis.partieGagnee(gameBis.getListeJoueur()[0].getCouleur());
+            boolean victoireJ2 = plateauBis.partieGagnee(gameBis.getListeJoueur()[1].getCouleur());
+            if (victoireJ1 && !victoireJ2) {
+                infoMessage.setText("Bravo " + gameBis.getListeJoueur()[0].getName() + " , vous avez GAGNÉ ! ");
                 turnButtonsOff();
             }
-          
+            if (victoireJ2 && !victoireJ1) {
+                infoMessage.setText("Bravo " + gameBis.getListeJoueur()[1].getName() + " , vous avez GAGNÉ ! ");
+                turnButtonsOff();
+            }
+            if (victoireJ2 && victoireJ1) {
+                if (gameBis.getJoueurCourant() == gameBis.getListeJoueur()[1]) {
+                    infoMessage.setText("Bravo " + gameBis.getListeJoueur()[0].getName() + " , vous avez GAGNÉ ! (faute de jeu)");
+                    turnButtonsOff();
+                }
+                if (gameBis.getJoueurCourant() == gameBis.getListeJoueur()[0]) {
+                    infoMessage.setText("Bravo " + gameBis.getListeJoueur()[1].getName() + " , vous avez GAGNÉ ! (faute de jeu)");
+                    turnButtonsOff();
+                }
+            }
+            if (plateauBis.grilleRemplie()) {
+                infoMessage.setText("EGALITÉ, la grille est remplie");
+                turnButtonsOff();
+            }
+
             changeJoueurCourant();
+            actualiserNbDesintegrateurs();
         }
     }//GEN-LAST:event_btn_col_2ActionPerformed
 
     private void btn_col_4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_col_4ActionPerformed
         // TODO add your handling code here:
-        if(plateauBis.colonneRemplie(4)) {
-                    infoMessage.setText("Attention! La colonne que vous avez choisi est déjà remplie. \n");
-                    panneauInformationsPartie.repaint();
-                    
+        if (plateauBis.colonneRemplie(4)) {
+            infoMessage.setText("Attention! La colonne que vous avez choisi est déjà remplie. \n");
+            panneauInformationsPartie.repaint();
+
         }
         int ligne = plateauBis.derniereLigneLibre(4);
-            if (plateauBis.presenceTrouNoir(ligne, 4)){
-                plateauBis.supprimerTrouNoir(ligne, 4);
-            }
-            else if(plateauBis.presenceDesintegrateur(ligne, 4)){
-                gameBis.getJoueurCourant().obtenirDesintegrateur();
-                plateauBis.supprimerDesintegrateur(ligne, 4);
-                ligne = plateauBis.ajouterJetonDansColonne(gameBis.getJoueurCourant().jouerJeton(), 4);                
-            }else{
-                ligne = plateauBis.ajouterJetonDansColonne(gameBis.getJoueurCourant().jouerJeton(), 4);
-            }
-            panneauGrille.repaint();
-            if(plateauBis.partieGagnee(gameBis.getJoueurCourant().getCouleur())){
-                infoMessage.setText("Bravo " + gameBis.getJoueurCourant().getName() + " , vous avez GAGNÉ ! ");  
+        if (plateauBis.presenceTrouNoir(ligne, 4)) {
+            plateauBis.supprimerTrouNoir(ligne, 4);
+        } else if (plateauBis.presenceDesintegrateur(ligne, 4)) {
+            gameBis.getJoueurCourant().obtenirDesintegrateur();
+            plateauBis.supprimerDesintegrateur(ligne, 4);
+            ligne = plateauBis.ajouterJetonDansColonne(gameBis.getJoueurCourant().jouerJeton(), 4);
+        } else {
+            ligne = plateauBis.ajouterJetonDansColonne(gameBis.getJoueurCourant().jouerJeton(), 4);
+        }
+        panneauGrille.repaint();
+        boolean victoireJ1 = plateauBis.partieGagnee(gameBis.getListeJoueur()[0].getCouleur());
+        boolean victoireJ2 = plateauBis.partieGagnee(gameBis.getListeJoueur()[1].getCouleur());
+        if (victoireJ1 && !victoireJ2) {
+            infoMessage.setText("Bravo " + gameBis.getListeJoueur()[0].getName() + " , vous avez GAGNÉ ! ");
+            turnButtonsOff();
+        }
+        if (victoireJ2 && !victoireJ1) {
+            infoMessage.setText("Bravo " + gameBis.getListeJoueur()[1].getName() + " , vous avez GAGNÉ ! ");
+            turnButtonsOff();
+        }
+        if (victoireJ2 && victoireJ1) {
+            if (gameBis.getJoueurCourant() == gameBis.getListeJoueur()[1]) {
+                infoMessage.setText("Bravo " + gameBis.getListeJoueur()[0].getName() + " , vous avez GAGNÉ ! (faute de jeu)");
                 turnButtonsOff();
-            }else if(plateauBis.grilleRemplie()){
-                infoMessage.setText("EGALITÉ, la grille est remplie");    
+            }
+            if (gameBis.getJoueurCourant() == gameBis.getListeJoueur()[0]) {
+                infoMessage.setText("Bravo " + gameBis.getListeJoueur()[1].getName() + " , vous avez GAGNÉ ! (faute de jeu)");
                 turnButtonsOff();
             }
-            
-            changeJoueurCourant();
+        }
+        if (plateauBis.grilleRemplie()) {
+            infoMessage.setText("EGALITÉ, la grille est remplie");
+            turnButtonsOff();
+        }
+
+        changeJoueurCourant();
+        actualiserNbDesintegrateurs();
     }//GEN-LAST:event_btn_col_4ActionPerformed
 
     private void btn_col_5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_col_5ActionPerformed
         // TODO add your handling code here:
-        if(plateauBis.colonneRemplie(5)) {
-                    infoMessage.setText("Attention! La colonne que vous avez choisi est déjà remplie. \n");
-                    panneauInformationsPartie.repaint();
-                    
-        }else{
-        int ligne = plateauBis.derniereLigneLibre(5);
-            if (plateauBis.presenceTrouNoir(ligne, 5)){
+        if (plateauBis.colonneRemplie(5)) {
+            infoMessage.setText("Attention! La colonne que vous avez choisi est déjà remplie. \n");
+            panneauInformationsPartie.repaint();
+
+        } else {
+            int ligne = plateauBis.derniereLigneLibre(5);
+            if (plateauBis.presenceTrouNoir(ligne, 5)) {
                 plateauBis.supprimerTrouNoir(ligne, 5);
-            }
-            else if(plateauBis.presenceDesintegrateur(ligne, 5)){
+            } else if (plateauBis.presenceDesintegrateur(ligne, 5)) {
                 gameBis.getJoueurCourant().obtenirDesintegrateur();
                 plateauBis.supprimerDesintegrateur(ligne, 5);
-                ligne = plateauBis.ajouterJetonDansColonne(gameBis.getJoueurCourant().jouerJeton(), 5);                
-            }else{
+                ligne = plateauBis.ajouterJetonDansColonne(gameBis.getJoueurCourant().jouerJeton(), 5);
+            } else {
                 ligne = plateauBis.ajouterJetonDansColonne(gameBis.getJoueurCourant().jouerJeton(), 5);
             }
             panneauGrille.repaint();
-            if(plateauBis.partieGagnee(gameBis.getJoueurCourant().getCouleur())){
-                infoMessage.setText("Bravo " + gameBis.getJoueurCourant().getName() + " , vous avez GAGNÉ ! ");
-                turnButtonsOff();
-            }else if(plateauBis.grilleRemplie()){
-                infoMessage.setText("EGALITÉ, la grille est remplie"); 
+            boolean victoireJ1 = plateauBis.partieGagnee(gameBis.getListeJoueur()[0].getCouleur());
+            boolean victoireJ2 = plateauBis.partieGagnee(gameBis.getListeJoueur()[1].getCouleur());
+            if (victoireJ1 && !victoireJ2) {
+                infoMessage.setText("Bravo " + gameBis.getListeJoueur()[0].getName() + " , vous avez GAGNÉ ! ");
                 turnButtonsOff();
             }
-           
+            if (victoireJ2 && !victoireJ1) {
+                infoMessage.setText("Bravo " + gameBis.getListeJoueur()[1].getName() + " , vous avez GAGNÉ ! ");
+                turnButtonsOff();
+            }
+            if (victoireJ2 && victoireJ1) {
+                if (gameBis.getJoueurCourant() == gameBis.getListeJoueur()[1]) {
+                    infoMessage.setText("Bravo " + gameBis.getListeJoueur()[0].getName() + " , vous avez GAGNÉ ! (faute de jeu)");
+                    turnButtonsOff();
+                }
+                if (gameBis.getJoueurCourant() == gameBis.getListeJoueur()[0]) {
+                    infoMessage.setText("Bravo " + gameBis.getListeJoueur()[1].getName() + " , vous avez GAGNÉ ! (faute de jeu)");
+                    turnButtonsOff();
+                }
+            }
+            if (plateauBis.grilleRemplie()) {
+                infoMessage.setText("EGALITÉ, la grille est remplie");
+                turnButtonsOff();
+            }
+
             changeJoueurCourant();
+            actualiserNbDesintegrateurs();
         }
     }//GEN-LAST:event_btn_col_5ActionPerformed
 
-    public void turnButtonsOff(){
-            btn_col_6.setEnabled(false);
-            btn_col_5.setEnabled(false);
-            btn_col_4.setEnabled(false);
-            btn_col_3.setEnabled(false);
-            btn_col_2.setEnabled(false);
-            btn_col_1.setEnabled(false);
-            btn_col_0.setEnabled(false);
+    private void desintegrer_recupererActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_desintegrer_recupererActionPerformed
+        // TODO add your handling code here:
+        panneauGrille.removeAll();
+        panneauGrille.repaint();
+        for (int i = 5; i >= 0; i--) {
+            for (int j = 0; j < 7; j++) {
+                CelluleDeGrilleGraphique cellGraph2 = new CelluleDeGrilleGraphique(plateauBis.retournerCase(i, j));
+                panneauGrille.add(cellGraph2);
+                panneauGrille.repaint();
+                cellGraph2.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
+                        CelluleDeGrille c = cellGraph2.celluleAssociee;
+                        if (c.getJetonCourant() == null) {
+                            infoMessage.setText("la case est vide");
+                        }
+                        if (c.getJetonCourant().lireCouleur().equals(gameBis.getJoueurCourant().getCouleur())) {
+                            infoMessage.setText("Vous avez bien récupérer un de vos jeton");
+                            gameBis.getJoueurCourant().ajouterJeton(c.recupererJeton());
+                            changeJoueurCourant();
+                        }else{
+                            if(gameBis.getJoueurCourant().getNbDesintegrateurs() >0){
+                                infoMessage.setText("Vous avez bien désintégré un jeton adverse");
+                                c.supprimerJeton();
+                                gameBis.getJoueurCourant().utiliserDesintegrateur();
+                                changeJoueurCourant();
+                            }else{
+                                infoMessage.setText("Vous n'avez pas de desintegrateurs");
+                            }
+                            
+                            
+                        }
+                    }
+                });
+            }
+        }
+        panneauGrille.repaint();
+    }//GEN-LAST:event_desintegrer_recupererActionPerformed
+
+    public void turnButtonsOff() {
+        btn_col_6.setEnabled(false);
+        btn_col_5.setEnabled(false);
+        btn_col_4.setEnabled(false);
+        btn_col_3.setEnabled(false);
+        btn_col_2.setEnabled(false);
+        btn_col_1.setEnabled(false);
+        btn_col_0.setEnabled(false);
     }
+
     /**
      * @param args the command line arguments
      */
@@ -536,20 +713,25 @@ public class interface_graph extends javax.swing.JFrame {
             public void run() {
                 interface_graph newInterface = new interface_graph();
                 newInterface.setVisible(true);
-                
+
             }
         });
     }
-    
-    public void changeJoueurCourant(){
-        if(gameBis.getJoueurCourant() == gameBis.getListeJoueur()[0]){
+
+    public void changeJoueurCourant() {
+        if (gameBis.getJoueurCourant() == gameBis.getListeJoueur()[0]) {
             gameBis.setJoueurCourant(gameBis.getListeJoueur()[1]);
-        }else{
-            gameBis.setJoueurCourant(gameBis.getListeJoueur()[0]);     
+        } else {
+            gameBis.setJoueurCourant(gameBis.getListeJoueur()[0]);
         }
         infoJoueurCourant.setText(gameBis.getJoueurCourant().getName());
     }
-    
+
+    public void actualiserNbDesintegrateurs() {
+        infoJ2Desintegrateurs.setText(Integer.toString(gameBis.getListeJoueur()[1].getNbDesintegrateurs()));
+        infoJ1Desintegrateurs.setText(Integer.toString(gameBis.getListeJoueur()[0].getNbDesintegrateurs()));
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_col_0;
     private javax.swing.JButton btn_col_1;
@@ -559,6 +741,7 @@ public class interface_graph extends javax.swing.JFrame {
     private javax.swing.JButton btn_col_5;
     private javax.swing.JButton btn_col_6;
     private javax.swing.JButton btn_start;
+    private javax.swing.JButton desintegrer_recuperer;
     private javax.swing.JLabel infoJ1Couleur;
     private javax.swing.JLabel infoJ1Desintegrateurs;
     private javax.swing.JLabel infoJ1Nom;
@@ -583,6 +766,7 @@ public class interface_graph extends javax.swing.JFrame {
     private javax.swing.JTextField nom_joueur_1;
     private javax.swing.JTextField nom_joueur_2;
     private javax.swing.JPanel panneauCreationPartie;
+    private javax.swing.JPanel panneauDesintegrer;
     private javax.swing.JPanel panneauGrille;
     private javax.swing.JPanel panneauInformationsJoueurs;
     private javax.swing.JPanel panneauInformationsPartie;
